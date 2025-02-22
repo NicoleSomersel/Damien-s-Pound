@@ -1,0 +1,100 @@
+<html>
+  <head>
+    <script>src="root(folder)/script.js" defer</script>
+  <script>src="root(folder)/words.js" defer</script>
+    <style>
+body{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height = 100vh;
+  background:  purple;
+}
+ .container{
+   width: 450px;
+   background: white;
+   border: 4px ridge yellow;
+      }
+      .container h2{
+        font-size:25px;
+        font-weight:500;
+        padding 15px 20px;
+        border-bottom: 4px solid #ccc;
+      }
+      .container .content{
+        margin: 25px 30px 23px;
+      }
+      .content .word{
+        font-size: 33px;
+        font-weight: 500;
+        text-align:center;
+        text-transom: uppercase;
+        letter-spacing: 25px;
+        margin: -24px;
+      }
+      .content .details{
+        margin 20px 0 25px;
+      }
+      .details p{
+        font-size: 18px;
+        margin-bottm:10px;
+      }
+      .details p b{
+        font-weight: 500;
+      }
+      .content input{
+        width: 100%;
+        height: 60px;
+        outline: none;
+        font-size:18px;
+        padding 0 16px;
+        border-radius: 5px;
+        border: 1px solid #aaa;
+      }
+      .content buttons{
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+      }
+      .button button{
+        border:none;
+        outline:none;
+        padding: 15px 0;
+        font-size: 17px;
+        border-radius: 5px;
+        cusor: pointer;
+        width: calc(100%/2 - 8px);
+      }
+      .button .refresh{
+        background: red;
+      }
+      .button .check{
+        background: green;
+      }
+   </style>
+  </head>
+<body>
+  <p>
+  <div class="container">
+    <h2>Word scramble</h2>
+    <div class="content">
+      <p class="word">sadfgjaasd</p>
+      <div class="details">
+        <p class="hint">hint: <span>Hinty hint</span></p>
+        <p class="time">time left: <span><b>30</b>s</span></p>
+      </div>
+      <input type="text" placeholder = "Enter a valid word"
+    </div>
+      <div class="button">
+        <button class="refresh">
+          refresh
+        </button>
+        <button class="check">
+          check word
+        </button>
+      </div>
+.  </div>
+    Hello world!
+  </p>
+
+</html>

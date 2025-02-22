@@ -14,7 +14,7 @@ let correctWord, timer;
 const initTimer = () => {
   clearInterval(timer);
   timer = setInterval(()  => {
-    if maxtiem > 0{
+    if maxtime > 0{
       maxtime--;
       return timeText.innerText = maxtime;
     }

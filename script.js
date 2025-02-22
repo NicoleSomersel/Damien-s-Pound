@@ -54,3 +54,9 @@ const checkWord = () =>{
 refreshBtn.addEventListner('click', initGame());
 refreshBtn.addEventListner('click', checkWord());
 initGame():
+
+
+//Contact.html JavaScript
+.flex-container {
+  display: flex;
+}

@@ -134,7 +134,9 @@
     color: rgb(255, 255, 255); /* Change color to white on hover */
     text-decoration: underline; /* Underline on hover */
 }
-      .container {
+      
+  /*Home Page Layout*/
+      .layout {
   display: grid;
   grid-template-areas:
     "header header"
@@ -145,21 +147,18 @@
   background-color: #2196F3;
   padding: 5px;
 }
-.container > div {
+.layout> div {
   background-color: rgba(255, 255, 255, 0.8);
   padding: 10px;
 }
-.container > div.header {
+.layout > div.header {
   grid-area: header;
   text-align: center;
 }
-.container > div.menu {
-  grid-area: menu;
-}
-.container > div.content {
+.layout> div.content {
   grid-area: content;
 }
-.container > div.footer {
+.layout > div.footer {
   grid-area: footer;
 }
     </style>
@@ -181,11 +180,11 @@
     <h1>English Games</h1>
     <h1>Calculus Games</h1>
     <h5>@Copyright KHN Studios 2025</h5>
-    <div class="container">
+   <!--Home Page Layout--> 
+    <div class="layout">
   <div class="header"><h2>My Header</h2></div>
-  <div class="menu"><a href="#">Link 1</a><br><a href="#">Link 2</a><br><a href="#">Link 3</a></div>
   <div class="content"><h3>Lorem Ipsum</h3><p>Lorem ipsum odor amet, consectetuer adipiscing elit. Ridiculus sit nisl laoreet facilisis aliquet. Potenti dignissim litora eget montes rhoncus sapien neque urna. Cursus libero sapien integer magnis ligula lobortis quam ut.</p></div>
-  <div class="footer"><h4>Footer</h4></div>
+  <div class="footer"><h4>@Copyright KHN Studios 2025</h4></div>
 </div>
 
     

@@ -59,4 +59,5 @@ initGame():
 //Contact.html JavaScript
 .flex-container {
   display: flex;
+  flex-direction: row;
 }

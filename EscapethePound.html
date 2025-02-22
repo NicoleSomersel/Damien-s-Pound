@@ -1,1 +1,315 @@
-math game
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math Game - Damien's Pound</title>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Rubik+Bubbles&display=swap');
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+        text-align: center;
+        padding: 20px;
+      }
+      #game-container {
+        position: relative;
+        width: 400px;
+        height: 300px;
+        margin: 0 auto;
+        background-color: #fff;
+        border: 2px solid #46166b;
+        border-radius: 10px;
+        overflow: hidden;
+      }
+      #grid {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: repeating-linear-gradient(
+          to right,
+          #ddd 0%,
+          #ddd 1px,
+          transparent 1px,
+          transparent 10%
+        ),
+        repeating-linear-gradient(
+          to bottom,
+          #ddd 0%,
+          #ddd 1px,
+          transparent 1px,
+          transparent 10%
+        );
+      }
+      #cage {
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        background-color: #46166b;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        transition: bottom 1s ease-in-out;
+      }
+      #input-container {
+        margin-top: 20px;
+      }
+      #math-input {
+        padding: 10px;
+        font-size: 16px;
+        width: 200px;
+        border: 2px solid #46166b;
+        border-radius: 5px;
+      }
+      #submit-btn, #refresh-btn {
+        padding: 10px 20px;
+        font-size: 16px;
+        background-color: #46166b;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin: 5px;
+      }
+      #submit-btn:hover, #refresh-btn:hover {
+        background-color: #50299E;
+      }
+      #message {
+        margin-top: 20px;
+        font-size: 18px;
+        color: #46166b;
+      }
+      #hint {
+        margin-top: 10px;
+        font-size: 16px;
+        color: #ff0000;
+      }
+      #answer {
+        margin-top: 10px;
+        font-size: 16px;
+        color: #46166b;
+        font-weight: bold;
+      }
+      /*Navigation*/
+      
+      #nav-bar{
+            height: 40px;
+            width: 100%;
+            background-color: #46166b; 
+            border: 4px solid #eeb211; 
+           
+            padding: 10px;
+            margin: 20px 0;
+             
+      }
+      #nav-bar nav{
+        display: flex;
+        justify-content: space-evenly;
+        align-items: flex-start;
+        text-align: center; 
+      }
+      #nav-bar ul{
+        font-family: "Rubik Bubbles", serif;
+        font-size: 23px; 
+        display: flex;
+        padding: 0;
+        margin: 0;
+        justify-content: space-evenly;
+      }
+      #nav-bar h1{
+        font-family: "Rubik Bubbles", serif;
+        margin: 0;
+        font-size: 30px;
+        color: #fff;
+      }
+      #nav-bar li{
+        margin-left: 20px;
+        padding-top: 10px;
+      }
+      #nav-bar li a{
+        color: #50299E;
+        font-weight: 800;
+        text-decoration: none;
+      }
+      #nav-bar li:hover{
+        color: #fff;
+        text-decoration: underline;
+      }
+      #nav-bar nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #eeb211;
+        }
+    </style>
+  </head>
+  <body>
+     <!--Navigation-->
+<div id="nav-bar">
+  <nav>
+    <h1 id="Header">DAMIEN'S POUND</h1>
+    <ul>
+    <a href="index.html">Home</a>
+    <a href="About.html">About</a>
+    <a href="Contact.html">Contact</a>
+    </ul>
+  </nav>
+</div>
+    <h1>Math Game - Escape the Pound!</h1>
+    <div id="game-container">
+      <div id="grid"></div>
+      <div id="cage"></div>
+    </div>
+    <div id="input-container">
+      <input type="text" id="math-input" placeholder="Enter the math function">
+      <button id="submit-btn">Submit</button>
+      <button id="refresh-btn">Refresh Game</button>
+    </div>
+    <div id="message"></div>
+    <div id="hint"></div>
+    <div id="answer"></div>
+
+    <script>
+      // JavaScript for the Math Game
+      const cage = document.getElementById("cage");
+      const mathInput = document.getElementById("math-input");
+      const submitBtn = document.getElementById("submit-btn");
+      const refreshBtn = document.getElementById("refresh-btn");
+      const message = document.getElementById("message");
+      const hint = document.getElementById("hint");
+      const answer = document.getElementById("answer");
+      const grid = document.getElementById("grid");
+
+      let incorrectAttempts = 0; // Track incorrect attempts
+      const maxAttempts = 3; // Max attempts before showing a hint
+      let correctAnswer; // Correct function (randomized)
+      let hintText; // Hint for the function
+
+      // List of possible functions and hints
+      const functions = [
+        { equation: "y = x^2", hint: "Hint: The function is a parabola." },
+        { equation: "y = log(x)", hint: "Hint: The function is logarithmic." },
+        { equation: "y = e^x", hint: "Hint: The function is exponential." },
+        { equation: "y = sin(x)", hint: "Hint: The function is trigonometric (sine)." },
+        { equation: "y = cos(x)", hint: "Hint: The function is trigonometric (cosine)." },
+        { equation: "y = tan(x)", hint: "Hint: The function is trigonometric (tangent)." },
+        { equation: "y = asin(x)", hint: "Hint: The function is inverse trigonometric (arcsine)." },
+        { equation: "y = acos(x)", hint: "Hint: The function is inverse trigonometric (arccosine)." },
+        { equation: "y = atan(x)", hint: "Hint: The function is inverse trigonometric (arctangent)." },
+      ];
+
+      // Initialize the game
+      function initGame() {
+        // Randomly select a function
+        const randomIndex = Math.floor(Math.random() * functions.length);
+        correctAnswer = functions[randomIndex].equation;
+        hintText = functions[randomIndex].hint;
+
+        // Reset game state
+        incorrectAttempts = 0;
+        mathInput.value = "";
+        message.textContent = "";
+        hint.textContent = "";
+        answer.textContent = "";
+        submitBtn.disabled = false;
+        cage.style.bottom = "0";
+
+        // Clear the grid and plot the new function
+        grid.innerHTML = "";
+        plotFunction();
+      }
+
+      // Randomize the cage's position
+      function randomizeCagePosition() {
+        const containerWidth = document.getElementById("game-container").clientWidth;
+        const cageWidth = cage.clientWidth;
+        const randomX = Math.floor(Math.random() * (containerWidth - cageWidth));
+        cage.style.left = `${randomX}px`;
+      }
+
+      // Plot the function on the grid
+      function plotFunction() {
+        const canvas = document.createElement("canvas");
+        canvas.width = 400;
+        canvas.height = 300;
+        grid.appendChild(canvas);
+        const ctx = canvas.getContext("2d");
+
+        // Draw the function
+        ctx.strokeStyle = "#46166b";
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        for (let x = -10; x <= 10; x += 0.1) {
+          let y;
+          switch (correctAnswer) {
+            case "y = x^2":
+              y = x * x;
+              break;
+            case "y = log(x)":
+              y = Math.log(x);
+              break;
+            case "y = e^x":
+              y = Math.exp(x);
+              break;
+            case "y = sin(x)":
+              y = Math.sin(x);
+              break;
+            case "y = cos(x)":
+              y = Math.cos(x);
+              break;
+            case "y = tan(x)":
+              y = Math.tan(x);
+              break;
+            case "y = asin(x)":
+              y = Math.asin(x);
+              break;
+            case "y = acos(x)":
+              y = Math.acos(x);
+              break;
+            case "y = atan(x)":
+              y = Math.atan(x);
+              break;
+          }
+          const plotX = (x + 10) * 20; // Scale x to fit the grid
+          const plotY = 300 - (y + 10) * 15; // Scale y to fit the grid
+          ctx.lineTo(plotX, plotY);
+        }
+        ctx.stroke();
+      }
+
+      // Check the user's input
+      function checkAnswer() {
+        const userAnswer = mathInput.value.trim();
+
+        if (userAnswer === correctAnswer) {
+          cage.style.bottom = "300px"; // Move cage off screen
+          message.textContent = "Correct! Damien is free! 🎉";
+          playCorrectSound();
+          submitBtn.disabled = true; // Disable the submit button after correct answer
+        } else {
+          incorrectAttempts++;
+          if (incorrectAttempts === maxAttempts) {
+            hint.textContent = hintText; // Show hint after 3 incorrect attempts
+          } else if (incorrectAttempts > maxAttempts) {
+            answer.textContent = `The correct answer is: ${correctAnswer}`; // Reveal answer after hint
+            submitBtn.disabled = true; // Disable the submit button
+          }
+          message.textContent = `Incorrect. Attempts left: ${maxAttempts - incorrectAttempts}`;
+        }
+      }
+
+      // Play a correct sound
+      function playCorrectSound() {
+        const audio = new Audio("https://www.soundjay.com/button/beep-07.mp3"); // Example sound
+        audio.play();
+      }
+
+      // Event listeners
+      submitBtn.addEventListener("click", checkAnswer);
+      refreshBtn.addEventListener("click", initGame);
+      window.addEventListener("load", () => {
+        initGame();
+        randomizeCagePosition();
+      });
+    </script>
+  </body>
+</html>

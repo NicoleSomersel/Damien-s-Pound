@@ -30,4 +30,4 @@ const words= [
   {
     word:"perspective",hint:"a mental view or prospect, a visible scene"
   },
-]
+];

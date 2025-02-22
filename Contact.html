@@ -148,6 +148,14 @@
   grid-area: footer;
   text-align: center;
 }
+#content{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);  /* 3 equal-width columns */
+  gap: 20px;  /* Optional: adds space between the headings */
+}
+ #content h3{
+     text-align: center;
+ }
     </style>
   </head>
   
@@ -168,10 +176,7 @@
     <!--Home Page Layout--> 
     <div class="layout">
   <div class="header"><h1>Meet The Team</h1></div>
-  <div class="content"><div class="keira-container"><div><h3>Keira Rocher - Artist</h3></div><div><b>Email:</b>keriarocher3@gmail.com</div></div>
-
-      
-      <h3>Nicole Somersel - Math Game Programmer</h3><h3>Hannah Folkes - English Game Programer</h3></div>
+  <div class="content"><h3>Keira Rocher - Artist</h3><h3>Nicole Somersel - Math Game Programmer</h3><h3>Hannah Folkes - English Game Programer</h3></div></div>
   <div class="footer"><h4>@Copyright KHN Studios 2025</h4></div>
 </div>
   </body>

@@ -1,1 +1,20 @@
+   
+a:link {
+color: blue; /* unvisited link */
+}
+a:visited {
+color: #46166b; /* visited link */
+}
+a:hover {
+color: #97a4af; /* mouse over link */
+}
+a:active {
+color: ##eeb211; /* selected link */
+}
 
+body {
+  text-align: center;
+  background-color: #905BBB;
+  color: #000;
+  font-family: Verdana;
+}
